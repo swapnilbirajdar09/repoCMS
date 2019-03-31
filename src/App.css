@@ -1,25 +1,266 @@
-.image-arrange {
-  width: 63px;
-  padding-left: 53px;
-  padding-top: 25px;
-  display: block;
-  margin-left: 46px;
+body {
+  margin: 0;
+  padding: 0;
+  background-size: cover;
+  font-family: 'Raleway', sans-serif;
 }
-
-.box {
+h1 {
+  margin: 0;
+  color: #ffffff;
   text-align: center;
-  width: 20%;
-  height: 120px;
-  float: left;
-  border: 1px solid #ccc!important;
-  margin: 32px;
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)!important;
-  border-radius: 8px!important;
+  font-size: 50px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  padding: 50px 0;
 }
 
-.text-margin {
-  /*margin-left: 27px;*/
+h2 {
+  margin: 0;
+  font-size: 25px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 1px;
+  padding-bottom: 14px;
+  padding-top: 7px;
 }
-.padding {
-  padding: 0px;
+
+p.w3l-register-p {
+  color: #eee;
+  font-size: 13px;
+  text-align: center;
+  margin-top: 2em;
+}
+
+.w3l-login-form {
+  background: #ffffff;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 3em;
+  border-radius: 10px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 16px 0 rgba(0,0,0,0.16);
+  margin-top: 116px;
+}
+
+.group {
+  display: flex;
+  padding: 15px 5px;
+  background-color: #ffffff;
+  border: 1px solid grey;
+}
+
+.group i {
+  font-size: 20px;
+  padding: 0 10px;
+}
+
+.w3l-form-group {
+  margin: 20px 0;
+}
+
+.w3l-form-group label {
+  display: block;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  border: none;
+  box-sizing: border-box;
+  background: transparent;
+  color: #000;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  outline: none;
+}
+
+button {
+  background: #00BCD4;
+  color: #ffffff;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+  padding: 12px 60px;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 6px;
+}
+
+button:hover {
+  background-color: #00BCD4;
+  transition-duration: 5s;
+}
+
+.forgot {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+a {
+  color: #eee;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.forgot p {
+  text-align: center;
+  margin: 0px;
+  font-size: 13px;
+}
+
+.register {
+  color: #00BCD4;
+  text-decoration: none;
+}
+
+/*--footer--*/
+
+p.copyright-agileinfo {
+  font-size: 15px;
+  letter-spacing: 2px;
+  color: #fff;
+  font-weight: 300;
+}
+
+footer p a {
+  display: inline-block;
+  color: #fff;
+  text-decoration: underline;
+}
+
+footer p a:hover {
+  color: #fff;
+  text-decoration: none;
+  -webkit-transition: 0.5s all;
+  -o-transition: 0.5s all;
+  -moz-transition: 0.5s all;
+  -ms-transition: 0.5s all;
+  transition: 0.5s all;
+}
+
+footer {
+  padding: 4em 0;
+  text-align: center;
+}
+/*--//footer--*/
+
+/*-- /responsive design --*/
+
+@media(max-width:768px) {
+  h1 {
+    font-size: 47px;
+  }
+}
+
+@media(max-width:667px) {
+  h1 {
+    font-size: 45px;
+  }
+}
+
+@media(max-width:640px) {
+  p.copyright-agileinfo {
+    letter-spacing: 1px;
+  }
+  h1 {
+    font-size: 43px;
+  }
+}
+
+@media(max-width:568px) {
+  h1 {
+    font-size: 40px;
+  }
+  p.copyright-agileinfo {
+    font-size: 14px;
+  }
+}
+
+@media(max-width:480px) {
+  .w3l-login-form {
+    margin: 0 3vw;
+  }
+  h1 {
+    font-size: 38px;
+  }
+  p.copyright-agileinfo {
+    line-height: 1.8em;
+  }
+}
+
+@media(max-width:414px) {
+  h1 {
+    font-size: 34px;
+  }
+}
+
+@media(max-width:384px) {
+  h1 {
+    font-size: 30px;
+  }
+}
+
+@media(max-width:320px) {
+  h1 {
+    font-size: 25px;
+  }
+  .forgot p {
+    text-align: left;
+  }
+  .forgot {
+    display: block;
+  }
+}
+
+.w3-modal {
+  display: block !important;
+}
+.font-size {
+  font-size: 19px !important;
+}
+/*.forgot-password-modal {*/
+  /*height: 38% !important;*/
+  /*width: 30% !important;*/
+/*}*/
+
+  .forgot-password-modal {
+    width: 496px;
+    height: 238px;
+  }
+.w3-modal {
+  background-color: rgba(0,0,0,0.9) !important;
+}
+
+.reset-password-modal {
+  width: 496px;
+  height: 336px;
+}
+
+.create-user-modal-padding-top {
+  padding-top: 31px !important;
+}
+
+.create-user-modal {
+  width: 427px;
+  height: 440px
+}
+
+.create-user-modal-buttons {
+  margin:10px;
+  padding:0 !important;
+  height: 33px;
+}
+.flex {
+  display: flex;
+}
+.dropdown {
+  overflow: hidden;
 }
