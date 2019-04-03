@@ -75,4 +75,67 @@ class Section_model extends CI_Model {
         }
     }
 
+    // create new section in hospital function
+    public function createNewSection($app_id) {
+
+        // insert new data
+        $insert_data = array(
+            'content'   => ''
+        );
+        $this->db->insert('section_content', $insert_data);
+        if ($this->db->affected_rows() > 0){
+            $section_id= $this->db->insert_id();
+            // validate user token
+            $record = $this->db->get_where('hospital_sections', array('app_id =' => $app_id))->result();
+            $sectionJson='';
+            foreach ($record as $key) {
+                $sectionJson=$key->sections;            
+            }
+
+            // create section json
+            $sectionArr=array();
+            if($sectionJson!='' && $sectionJson!='[]'){
+                $sectionArr=json_decode($sectionJson);
+                array_push($sectionArr, $section_id);
+                $sectionJson=json_encode($sectionArr);
+            }
+            else{
+                $sectionArr[]=$section_id;
+                $sectionJson=json_encode($sectionArr);
+            }
+
+            // update section to hospital section table in array
+            $update_data = array(
+                'sections'   => $sectionJson
+            );
+            $this->db->where('app_id', $app_id);
+            $this->db->update('hospital_sections', $update_data);
+            if ($this->db->affected_rows() == 1){
+                $response = array(
+                    'status' => true,
+                    'type' => 'success',
+                    'message' => 'Section created successfully'
+                );
+                return $response; 
+            }
+            else{
+                $response = array(
+                    'status' => false,
+                    'type' => 'error',
+                    'message' => 'Section was not created!'
+                );
+                return $response;
+            }
+            
+        }
+        else{
+            $response = array(
+                'status' => false,
+                'type' => 'error',
+                'message' => 'Section was not created!'
+            );
+            return $response;
+        }
+    }
+
 }

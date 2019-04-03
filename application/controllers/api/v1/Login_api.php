@@ -47,6 +47,7 @@ class Login_api extends REST_Controller {
                     'userId' => $result['data']['userId'],
                     'appId' => $result['data']['appId'],
                     'modified_time' => time(),
+                    'expiry_time' => time() + 20 * 60,
                     'token' => $user_token
                 );
                 

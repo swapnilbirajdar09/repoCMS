@@ -47,7 +47,8 @@ class Login_model extends CI_Model {
         //print_r($data);die();
         $update_data = array(
             'current_token' => $token,
-            'modified_time' => $modified_time
+            'modified_time' => $modified_time,
+            'expiry_time' => $expiry_time
         );
         $this->db->where('user_id', $userId);
         if ($this->db->update('user_tab', $update_data)) {
@@ -67,8 +68,11 @@ class Login_model extends CI_Model {
 
     // refresh token of user
     public function refreshToken($user_id,$app_id,$token,$new_token){
+        $modified_time=time();
+        $expiry_time=time() + 20 * 60;  // +20min 
         $update_data = array(
-            'modified_time' => time(),
+            'modified_time' => $modified_time,
+            'expiry_time' => $expiry_time,
             'old_token' => $token,
             'current_token' => $new_token,
             'status' => 1);
@@ -81,7 +85,8 @@ class Login_model extends CI_Model {
             $updated_data = array(
                 'userId' => $user_id,
                 'appId' => $app_id,
-                'modified_time' => time(),
+                'modified_time' => $modified_time,
+                'expiry_time' => $expiry_time,
                 'token' => $new_token
             );
 

@@ -3,12 +3,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 require(APPPATH.'/libraries/REST_Controller.php');
 
-class Section_api extends REST_Controller {
+class User_api extends REST_Controller {
 
     public function __construct() {
         parent::__construct();
-        
-        $this->load->model('section_model');
+        $this->load->model('user_model');
 
         // LOADING THE AUTHORIZATION TOKEN LIBRARY 
         $this->load->library('Authorization_Token');
@@ -51,69 +50,15 @@ class Section_api extends REST_Controller {
         //die();
     }
 
-    // api to get all hospital sections
-    public function getHospitalSections_get() {
-        $headers=getallheaders();
-        $app_id=$headers['app_id'];
-        $result = $this->section_model->getHospitalSections($app_id);
-        switch ($result['type']) {
-            case 'error':
-                return $this->response($result, 404);
-                break;
+    // api to create new user
+    public function createUser_post() {
+        $data=$_POST;
 
-            case 'success':
-                return $this->response($result, 200);
-                break;
-
-            case 'warning':
-                return $this->response($result, 412);
-                break;
-
-            default:
-                $response = array(
-                    'status' => false,
-                    'type' => 'error',
-                    'message' => 'Error: Server error detected!');
-                return $this->response($response, 500);
-                break;
-        }
-    }
-
-    // api to get all hospital sections
-    public function getSectionContent_get() {
-        extract($_GET);
-        $result = $this->section_model->getSectionContent($section_id);
-        switch ($result['type']) {
-            case 'error':
-                return $this->response($result, 404);
-                break;
-
-            case 'success':
-                return $this->response($result, 200);
-                break;
-
-            case 'warning':
-                return $this->response($result, 412);
-                break;
-
-            default:
-                $response = array(
-                    'status' => false,
-                    'type' => 'error',
-                    'message' => 'Error: Server error detected!');
-                return $this->response($response, 500);
-                break;
-        }
-    }
-
-    // api to create section in hospital
-    public function createNewSection_get(){
         // app_id from headers
         $headers=getallheaders();        
-        $app_id=$headers['app_id'];
+        $data['app_id']=$headers['app_id'];
 
-        $result = $this->section_model->createNewSection($app_id);
-        print_r($result);die();
+        $result = $this->section_model->createUser($data);
         switch ($result['type']) {
             case 'error':
                 return $this->response($result, 404);
