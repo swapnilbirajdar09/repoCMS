@@ -79,41 +79,72 @@ class Section_api extends REST_Controller {
         }
     }
 
-    // api to get all hospital sections
-    public function getSectionContent_get() {
-        extract($_GET);
-        $result = $this->section_model->getSectionContent($section_id);
-        switch ($result['type']) {
-            case 'error':
-                return $this->response($result, 404);
-                break;
+    // // api to get all hospital sections
+    // public function getSectionContent_get() {
+    //     extract($_GET);
+    //     $result = $this->section_model->getSectionContent($section_id);
+    //     switch ($result['type']) {
+    //         case 'error':
+    //             return $this->response($result, 404);
+    //             break;
 
-            case 'success':
-                return $this->response($result, 200);
-                break;
+    //         case 'success':
+    //             return $this->response($result, 200);
+    //             break;
 
-            case 'warning':
-                return $this->response($result, 412);
-                break;
+    //         case 'warning':
+    //             return $this->response($result, 412);
+    //             break;
 
-            default:
-                $response = array(
-                    'status' => false,
-                    'type' => 'error',
-                    'message' => 'Error: Server error detected!');
-                return $this->response($response, 500);
-                break;
-        }
-    }
+    //         default:
+    //             $response = array(
+    //                 'status' => false,
+    //                 'type' => 'error',
+    //                 'message' => 'Error: Server error detected!');
+    //             return $this->response($response, 500);
+    //             break;
+    //     }
+    // }
 
-    // api to create section in hospital
-    public function createNewSection_get(){
+    // // api to create section in hospital
+    // public function createNewSection_get(){
+    //     // app_id from headers
+    //     $headers=getallheaders();        
+    //     $app_id=$headers['app_id'];
+
+    //     $result = $this->section_model->createNewSection($app_id);
+    //     print_r($result);die();
+    //     switch ($result['type']) {
+    //         case 'error':
+    //             return $this->response($result, 404);
+    //             break;
+
+    //         case 'success':
+    //             return $this->response($result, 200);
+    //             break;
+
+    //         case 'warning':
+    //             return $this->response($result, 412);
+    //             break;
+
+    //         default:
+    //             $response = array(
+    //                 'status' => false,
+    //                 'type' => 'error',
+    //                 'message' => 'Error: Server error detected!');
+    //             return $this->response($response, 500);
+    //             break;
+    //     }
+    // }
+
+    // api to create content in section for hospital
+    public function addNewContent_post(){
+        $data=$_POST;
         // app_id from headers
         $headers=getallheaders();        
-        $app_id=$headers['app_id'];
+        $data['app_id']=$headers['app_id'];
 
-        $result = $this->section_model->createNewSection($app_id);
-        print_r($result);die();
+        $result = $this->section_model->addNewContent($data);
         switch ($result['type']) {
             case 'error':
                 return $this->response($result, 404);
@@ -136,5 +167,36 @@ class Section_api extends REST_Controller {
                 break;
         }
     }
+
+    // // api to remove/delete section in hospital
+    // public function deleteSection_get(){
+    //     extract($_GET);
+    //     // app_id from headers
+    //     $headers=getallheaders();        
+    //     $app_id=$headers['app_id'];
+
+    //     $result = $this->section_model->deleteSection($app_id,$section_id);
+    //     switch ($result['type']) {
+    //         case 'error':
+    //             return $this->response($result, 404);
+    //             break;
+
+    //         case 'success':
+    //             return $this->response($result, 200);
+    //             break;
+
+    //         case 'warning':
+    //             return $this->response($result, 412);
+    //             break;
+
+    //         default:
+    //             $response = array(
+    //                 'status' => false,
+    //                 'type' => 'error',
+    //                 'message' => 'Error: Server error detected!');
+    //             return $this->response($response, 500);
+    //             break;
+    //     }
+    // }
 
 }

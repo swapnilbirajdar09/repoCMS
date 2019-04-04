@@ -15,10 +15,29 @@ class User_model extends CI_Model {
             $response = array(
                 'status' => false,
                 'type' => 'unauthorized',
-                'message' => 'Unauthorised access. Invalid parameter values!'
+                'message' => 'Unauthorised access. Invalid header values!'
             );
             return $response;
         } else {
+            $expiry_time='';
+            $current_time=time();
+
+            // get expiry time
+            foreach ($record as $key) {
+                $expiry_time=$key->expiry_time;
+            }
+
+            // check token expired or not
+            if($expiry_time <= $current_time){
+                $response = array(
+                    'status' => false,
+                    'type' => 'unauthorized',
+                    'message' => 'Token expired!'
+                );
+                return $response;
+                die();
+            }
+
             $response = array(
                 'status' => true,
                 'type' => 'success',
@@ -35,7 +54,7 @@ class User_model extends CI_Model {
         $entityJson='';
 
         // check email exist or not
-        $checkEmailExist=$this->checkEmailExist($user_email);
+        $checkEmailExist=$this->checkEmailExist($user_email,$app_id);
         if($checkEmailExist){
             $response=array(
                 'status'    =>  false,
@@ -66,14 +85,14 @@ class User_model extends CI_Model {
         );
         $this->db->insert('user_tab', $insert_data);
         if ($this->db->affected_rows() > 0){
-         $response = array(
+           $response = array(
             'status' => true,
             'type' => 'success',
             'message' => 'Subadmin created successfully'
         );
-         return $response; 
-     }
-     else{
+           return $response; 
+       }
+       else{
         $response = array(
             'status' => false,
             'type' => 'error',
@@ -89,7 +108,7 @@ public function createAdmin($data) {
     $entityJson='';
 
     // check email exist or not
-    $checkEmailExist=$this->checkEmailExist($user_email);
+    $checkEmailExist=$this->checkEmailExist($user_email,$app_id);
     if($checkEmailExist){
         $response=array(
             'status'    =>  false,
@@ -121,14 +140,14 @@ public function createAdmin($data) {
     );
     $this->db->insert('user_tab', $insert_data);
     if ($this->db->affected_rows() > 0){
-     $response = array(
+       $response = array(
         'status' => true,
         'type' => 'success',
         'message' => 'Admin created successfully'
     );
-     return $response; 
- }
- else{
+       return $response; 
+   }
+   else{
     $response = array(
         'status' => false,
         'type' => 'error',
@@ -139,8 +158,8 @@ public function createAdmin($data) {
 }
 
 // check email id exist in user table or not
-public function checkEmailExist($email){
-    $checkEmail=$this->db->get_where('user_tab', array('user_email =' => $email))->result();
+public function checkEmailExist($email,$app_id){
+    $checkEmail=$this->db->get_where('user_tab', array('user_email =' => $email, 'app_id=' => $app_id))->result();
     if(empty($checkEmail)){
         // email not exist
         return false;
@@ -148,6 +167,27 @@ public function checkEmailExist($email){
     else{
         // email exists
         return true;
+    }
+}
+
+// delete section from hospital function
+public function deleteUser($app_id,$user_id){
+    $this->db->delete('user_tab', array('user_id' => $user_id));
+    if ($this->db->affected_rows() > 0) {
+        $response = array(
+            'status' => true,
+            'type' => 'success',
+            'message' => 'User removed successfully'
+        );
+        return $response; 
+    }
+    else{
+        $response = array(
+            'status' => false,
+            'type' => 'error',
+            'message' => 'User not found! User was not removed.'
+        );
+        return $response;
     }
 }
 
