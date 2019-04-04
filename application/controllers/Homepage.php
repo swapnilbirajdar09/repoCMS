@@ -1,7 +1,6 @@
 <?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Homepage extends CI_Controller {
 
     // Login controller
@@ -10,11 +9,10 @@ class Homepage extends CI_Controller {
     }
 
     // main index function
-    public function index() { 
-
+    public function index() {
     }
     
     // add new section
-    
+
 
 }
